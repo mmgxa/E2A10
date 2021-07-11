@@ -90,10 +90,13 @@ for param in self.embedding.parameters():
 To ensure a fair comparison, all models have a 200 hidden size (for both the encoder and the decoder)
 
 #### No Embeddings
+![](logs_noemb.png)
 
 #### English Embeddings
+![](logs_eng.png)
+
 
 #### English + French Embeddings 
-
+![](logs_eng_fre.png)
 
 ## Conclusion
