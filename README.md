@@ -87,7 +87,7 @@ for param in self.embedding.parameters():
 ```
 
 ## Results for English-French Translations
-
+To ensure a fair comparison, all models have a 200 hidden size (for both the encoder and the decoder)
 
 #### No Embeddings
 
@@ -95,3 +95,5 @@ for param in self.embedding.parameters():
 
 #### English + French Embeddings 
 
+
+## Conclusion
