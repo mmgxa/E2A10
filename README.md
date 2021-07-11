@@ -46,7 +46,7 @@ self.index2word = { i : word for word, i in glove_word2id.items() }
 self.n_words = len(glove_words) # 1917494
 ```
 
-Result: `n_words` changes from **1917494** to **1917495**. The missing word? It is *ooita* 😂
+~~Result: `n_words` changes from **1917494** to **1917495**. The missing word? It is *ooita* 😂~~
 
 (Theses lines were removed in subseqeunt training steps, defaulting to the `eos` and `sos` tokens - which are (obviously) missing in the GloVe representations since they are not words per se)
 
