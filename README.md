@@ -100,3 +100,4 @@ To ensure a fair comparison, all models have a 200 hidden size (for both the enc
 ![](logs_eng_fre.png)
 
 ## Conclusion
+Using embeddings should - in theory - improve the performance as well as reduce the training time since we no longer manipulate the embeddings. Although time was reduced using embeddings, the performance infact worsened. More models/data is needed to investigate this result.
