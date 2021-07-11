@@ -3,7 +3,7 @@
 ## Objectives
 The objective of this assignment is to replace the (random) embedding of the code presented in the class with GloVe embeddings. 
 
-## GloVe Embeddings
+## GloVe Embeddings - English
 GloVe stands for 'Global Vectors for Word Representation'. It is an unsupervised learning algorithm used to obtain an efficient vector represntations of words in order to better capture their meanings and their relations. A frequently given example is that the 'distance' between the word `man` and `woman` must be close to the distance between `king` and `queen`.
 
 
@@ -12,10 +12,13 @@ GloVe stands for 'Global Vectors for Word Representation'. It is an unsupervised
 
 These embeddings are available at [nlp.stanford.edu](https://nlp.stanford.edu/projects/glove/). There are a number of models available that differ in the source of text, the embedding dimensions, and the number of words in the vocabulary.
 
+## Skip-Gram Embeddings - French
+This is a pre-trained word2vec embeddings for the French language. It is available at [fauconnier.github.io](https://fauconnier.github.io/index.html#wordembeddingmodels). Various models (cbow/skip-gram) of different dimensions are available.
+
 
 ## Code Segments
 
-### Building the list of vectors
+### Building the list of vectors (English)
 
 This code builds a list of GloVe vectors. It also mainains a dictionary for mapping from word to index and a list (which helps to map from index to word).
 
@@ -35,7 +38,7 @@ with open(f'{glove_path}/glove.twitter.27B.200d.txt', 'rb') as f:
         word_vector = np.array(line[1:]).astype(np.float)
         glove_vectors.append(word_vector)
 ```
-### Unknown Words
+### Unknown Words (English)
 
 To ensure that there are no words in the training data that lack a GloVe representation, the `InputLang` class was populated with the words in our GloVe vectors' list. If the number of words increased from the ones present in GloVe, that indicated the presence of missing words.
 
@@ -51,11 +54,11 @@ Result:
 - Using Common Crawl (1.9M+ vocab, uncased, 300d), `n_words` changed from **1917494** to **1917495**. The missing word? It is *ooita* 😂
 - Using Twitter (1.2M+ vocab, uncased, 200d), `n_words` changed from **1193514** to **1193522**. The missing words are (henpecked, farsighted, unambitious, dramatist, oceanographer, accustoming, particularily, chiseling). Interestingly, the word 'ooita' is present!!!
 
-**Why was the Twitter-based GloVe used? In our Seq2Seq Model, the hidden units of the encoder are passed to the decoder. Therefore, they must have the same dimensions. The former has 300d representation only, whereas the latter has a 200d representation**
+**Why was the Twitter-based GloVe used? In our Seq2Seq Model, the hidden units of the encoder are passed to the decoder. Therefore, they must have the same dimensions. The former has 300d representation only, whereas the latter has a 200d representation. The maximum representation of the French dataset that I used was 200**
 
 (Theses lines were removed in subseqeunt training steps, defaulting to the `eos` and `sos` tokens - which are (obviously) missing in the GloVe representations since they are not words per se)
 
-### Matrix of Embeddings
+### Matrix of Embeddings  (English + French)
 
 After building the dictionary, a matrix of embeddings was populated. This matrix contains only the embeddings of the words in the vocabulary and not the entire ~2M words!
 
@@ -72,7 +75,7 @@ for i, word in enumerate(input_lang.word2index):
 
 ```
 
-### The Embedding Layer
+### The Embedding Layer (English + French)
 
 These embeddings are used as the first layer in our EncoderRNN. Also, since these are 'trained', we need to make sure that backpropagation doesn't affect these embeddings. So we make them non-trainable by setting the `requires_grad` argument of their parameters to `False`
 
@@ -83,9 +86,8 @@ for param in self.embedding.parameters():
         param.requires_grad = False
 ```
 
-## Results
+## Results for English-French Translations
 
-### English-French
 
 #### No Embeddings
 
@@ -93,12 +95,3 @@ for param in self.embedding.parameters():
 
 #### English + French Embeddings 
 
-
-
-### French-English
-
-#### No Embeddings
-
-#### English Embeddings
-
-#### English + French Embeddings 
